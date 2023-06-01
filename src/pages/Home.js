@@ -1,9 +1,13 @@
 import React from "react"
+import Typography from '@mui/material/Typography'
+
 
 const Home = () => {
     return (
         <>
-        <h1>Home</h1>
+            <Typography variant="h3">
+                Home
+            </Typography>
         </>
     )
 }

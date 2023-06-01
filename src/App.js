@@ -1,16 +1,19 @@
 import { Routes, Route } from "react-router-dom"
 
-import Home from "./pages/Home"
 import TemplateDefault from './templates/Default'
+
+import Home from "./pages/Home"
+import Customers from "./pages/Customers"
 
 const App = () => {
   return (
     <TemplateDefault>
       <Routes>
         <Route path="/" element={<Home />} />
-      </Routes>
+        <Route path="/customers" element={<Customers />}/>
+        </Routes>
     </TemplateDefault>
   )
 }
 
-export default App;
+export default App

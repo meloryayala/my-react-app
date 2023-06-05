@@ -24,7 +24,7 @@ const Customers = () => {
     return (
         <>
             <Typography variant="h3">
-                Customers
+                Add Customers
             </Typography>
             <Grid container spacing={2}>
                 {

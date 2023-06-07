@@ -7,7 +7,7 @@ const TemplateDefault = ({ children }) => {
     return (
         <>
             <Header />
-            <Container sx={{ margin: '20px 0' }}>
+            <Container sx={{ margin: '20px auto' }}>
                 {children}
             </Container>
         </>

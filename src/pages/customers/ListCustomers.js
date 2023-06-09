@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 import CustomerCard from "../../components/CustomerCard"
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
 
-
-
 const ListCustomers = () => {
     const [customers, setCustomers] = useState([])
-    console.log(customers)
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         axios.get('https://reqres.in/api/users')
@@ -31,6 +32,10 @@ const ListCustomers = () => {
             })
     }
 
+    const handleEditCustomer = id => {
+        navigate(`/customers/edit/${id}`)
+    }
+
     return (
         <>
             <Typography variant="h3">
@@ -47,6 +52,7 @@ const ListCustomers = () => {
                                 email={customer.email}
                                 avatar={customer.avatar}
                                 onRemoveCustomer={handleRemoveCustomer}
+                                onEditCustomer={handleEditCustomer}
                             />
                         </Grid>
                     ))

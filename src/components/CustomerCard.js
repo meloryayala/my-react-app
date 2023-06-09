@@ -11,7 +11,6 @@ import {
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ModalConfirm from './ModalConfirm'
-import { Handshake } from '@mui/icons-material'
 
 const CustomerCard = ({
     id,
@@ -19,7 +18,8 @@ const CustomerCard = ({
     lastname,
     email,
     avatar,
-    onRemoveCustomer
+    onRemoveCustomer,
+    onEditCustomer,
 }) => {
 
 
@@ -32,11 +32,15 @@ const CustomerCard = ({
     const handleConfirmModal = id => {
         handleToggleOpenModal()
         onRemoveCustomer(id)
-    
+
     }
 
     const handleRemoveCustomer = () => {
         handleToggleOpenModal()
+    }
+
+    const handleEditCustomer = id => {
+        onEditCustomer(id)
     }
 
     return (
@@ -52,7 +56,7 @@ const CustomerCard = ({
                     subheader={email}
                 />
                 <CardActions disableSpacing>
-                    <IconButton aria-label="edit client">
+                    <IconButton aria-label="edit client" onClick={() => handleEditCustomer(id)} >
                         <EditIcon />
                     </IconButton>
                     <IconButton aria-label="delete client" onClick={handleRemoveCustomer}>

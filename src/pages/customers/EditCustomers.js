@@ -1,5 +1,7 @@
-import { React, useState } from "react"
+import { React, useState, useEffect } from "react"
 import axios from "axios"
+import { useParams } from 'react-router-dom'
+
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -10,7 +12,9 @@ import { green } from '@mui/material/colors'
 
 
 
-const AddCustomers = () => {
+
+const EditCustomers = () => {
+    const { id } = useParams()
 
     const [form, setForm] = useState({
         name: {
@@ -31,6 +35,23 @@ const AddCustomers = () => {
 
     const [loading, setLoading] = useState(false)
 
+    useEffect(() => {
+        axios.get(`https://reqres.in/api/users/${id}`)
+            .then((response) => {
+                const { data } = response.data
+
+                setForm({
+                    name: {
+                        value: data.first_name,
+                        error: false,
+                    },
+                    job: {
+                        value: data.job,
+                        error: false,
+                    },
+                })
+            })
+    }, [])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -85,7 +106,7 @@ const AddCustomers = () => {
             )
         }
 
-        axios.post('https://reqres.in/api/users', {
+        axios.put(`https://reqres.in/api/users/${id}`, {
             name: form.name.value,
             job: form.job.value,
         }).then((response) => {
@@ -93,7 +114,7 @@ const AddCustomers = () => {
             setOpenToasty({
                 open: true,
                 severity: 'success',
-                message: 'Customer added correctly',
+                message: 'Customer updated correctly',
             })
         })
 
@@ -102,7 +123,7 @@ const AddCustomers = () => {
     return (
         <>
             <Typography variant="h3">
-                Add customers
+                Edit customers
             </Typography>
             <div>
                 <TextField
@@ -134,7 +155,7 @@ const AddCustomers = () => {
                         onClick={handleAddCustomerButton}
                         disabled={loading}
                         sx={{ marginTop: '20px' }} >
-                        {loading ? 'Loading...' : 'Add customer'}
+                        {loading ? 'Loading...' : 'Update customer'}
                     </Button>
                     {loading && (
                         <CircularProgress
@@ -159,11 +180,10 @@ const AddCustomers = () => {
             </div>
         </>
     )
-
 }
 
 
 
 
 
-export default AddCustomers
+export default EditCustomers

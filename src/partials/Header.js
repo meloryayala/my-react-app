@@ -19,7 +19,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import PeopleIcon from '@mui/icons-material/People'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 
-const Header = () => {
+const Header = ({ user }) => {
 
     const [menuOpen, setMenuOpen] = useState(false)
     const navigate = useNavigate()
@@ -30,6 +30,10 @@ const Header = () => {
 
     const handleClickMenuItem = route => {
         handleToggleMenu()
+        navigate(route)
+    }
+
+    const handleClickLogin = route => {
         navigate(route)
     }
 
@@ -53,7 +57,11 @@ const Header = () => {
                         }}>
                         My App
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {
+                        user.logged
+                            ? <Typography variant="h6">{user.email}</Typography>
+                            : <Button color="inherit" onClick={() => handleClickLogin("login")}>Login</Button>
+                    }
                 </Toolbar>
             </AppBar>
 
